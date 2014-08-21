@@ -18,37 +18,14 @@
 package com.github.yftx.FloatDemo;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.PixelFormat;
 import android.os.IBinder;
-import android.os.Vibrator;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.WindowManager;
-import android.widget.ImageView;
+import com.github.yftx.FloatDemo.widget.FloatView;
 
 public class TouchDetectService extends Service {
-    private ImageView mTouchDetector;
-    private WindowManager.LayoutParams mParams;
-    private WindowManager mWindowManager;
-    private static int VIBRATE_DURATION = 200;
-    private static final String TAG = "TouchDetectService";
 
-    private OnTouchListener mViewTouchListener = new OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    startVibrator(VIBRATE_DURATION);
-                    openActivity(FuntionUiActivity.class);
 
-            }
-            return true;
-        }
-    };
+    private FloatView mFloatView;
 
     @Override
     public IBinder onBind(Intent agr0) {
@@ -58,31 +35,20 @@ public class TouchDetectService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mTouchDetector = new ImageView(this);
-        mTouchDetector.setImageResource(R.drawable.ic_float_menu);
-
-        int orgWidth = mTouchDetector.getDrawable().getIntrinsicWidth();
-        int orgHeight = mTouchDetector.getDrawable().getIntrinsicHeight();
-
-        mTouchDetector.setOnTouchListener(mViewTouchListener);
-        mParams = new WindowManager.LayoutParams(
-                orgWidth,
-                orgHeight,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
-        mParams.gravity = Gravity.LEFT | Gravity.CENTER;
-        mTouchDetector.setScaleType(ImageView.ScaleType.FIT_XY);
-        mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        mWindowManager.addView(mTouchDetector, mParams);
+        mFloatView = new FloatView(this);
+        mFloatView.setOnClickListener(new FloatView.OnClickListener() {
+            @Override
+            public void onClick() {
+                openActivity(FuntionUiActivity.class);
+            }
+        });
     }
 
 
     @Override
     public void onDestroy() {
-        if (mWindowManager != null) {
-            if (mTouchDetector != null) mWindowManager.removeView(mTouchDetector);
-        }
+        if (mFloatView == null) return;
+        mFloatView.destory();
         super.onDestroy();
     }
 
@@ -93,8 +59,4 @@ public class TouchDetectService extends Service {
         getApplication().startActivity(intent);
     }
 
-    private void startVibrator(int vibratorDuration) {
-        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibe.vibrate(vibratorDuration);
-    }
 }

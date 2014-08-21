@@ -61,12 +61,13 @@ public class LogUtils {
         if (BuildConfig.DEBUG)
             android.util.Log.i(TAG, buildMessage(msg));
     }
+
     /**
      * Send an INFO log message.
      *
      * @param msg The message you would like logged.
      */
-    public static void i(String TAG,String msg) {
+    public static void i(String TAG, String msg) {
         if (BuildConfig.DEBUG)
             android.util.Log.i(TAG, buildMessage(msg));
     }

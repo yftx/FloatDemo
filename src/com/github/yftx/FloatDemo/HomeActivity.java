@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 public class HomeActivity extends Activity implements View.OnClickListener {
-    private boolean isServiceRun;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -18,7 +17,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.start:
                 start();
                 break;
@@ -30,11 +29,9 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
     private void stop() {
         stopService(new Intent(this, TouchDetectService.class));
-        isServiceRun = false ;
     }
 
     private void start() {
-        startService(new Intent(this, TouchDetectService.class))  ;
-        isServiceRun = true ;
+        startService(new Intent(this, TouchDetectService.class));
     }
 }
