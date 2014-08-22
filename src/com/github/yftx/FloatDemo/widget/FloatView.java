@@ -65,8 +65,7 @@ public class FloatView extends ImageView implements View.OnClickListener {
     private void init() {
         screenWidth = getResources().getDisplayMetrics().widthPixels;
         screenHeight = getResources().getDisplayMetrics().heightPixels;
-        SharedPreferences sp = PreferenceManager
-                .getDefaultSharedPreferences(getContext());
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
         int x = sp.getInt(FLOAT_X, 0);
         int y = sp.getInt(FLOAT_Y, 0);
         if (x > 0 && x != screenWidth - getViewWidth()) {

@@ -21,8 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".FuntionUiActivity"
-                  android:launchMode="singleTask"
-                  android:theme="@style/Transparent"/>
+                  android:theme="@style/Clean.Dialog"/>
 
         <service android:name=".TouchDetectService"/>
     </application>
